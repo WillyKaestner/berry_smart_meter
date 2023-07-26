@@ -159,8 +159,8 @@ def fake_data():
 
 
 def main():
-    # energy_data = get_energy_brick_data()
-    energy_data = fake_data()
+    energy_data = get_energy_brick_data()
+    # energy_data = fake_data()
     repository = SqlAlchemyLocation(db=get_db())
     repository.add(energy_data)
     logger.info(f"Saved measurements in the database: {energy_data.dict()}")
