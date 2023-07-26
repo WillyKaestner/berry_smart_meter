@@ -25,6 +25,11 @@ sudo apt install postgresql
 To set up a local .env file:
 
 1) Copy `.env_example` and paste it as `.env` on the same directory level
+
+```shell
+cp ./.env_example ./.env
+```
+
 2) Replace empty strings in the new .env file with strings containing the secrets
 
 ```
@@ -32,6 +37,8 @@ DATABASE_NAME=""
 DATABASE_USERNAME=""
 DATABASE_PASSWORD=""
 DATABASE_HOST=""
+PAPERTRAIL_HOST=""
+PAPERTRAIL_PORT=
 ```
 
 ## Run script

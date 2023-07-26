@@ -1,4 +1,5 @@
 # python -m pip install tinkerforge
+import logging.config
 from pydantic import BaseModel
 from sqlalchemy import Column, Integer
 from sqlalchemy.sql.sqltypes import TIMESTAMP
@@ -10,7 +11,9 @@ from tinkerforge.ip_connection import IPConnection
 from tinkerforge.bricklet_energy_monitor import BrickletEnergyMonitor
 
 from config import SETTINGS
-
+from logging_config import LOGGING_CONFIG
+logging.config.dictConfig(LOGGING_CONFIG)
+logger = logging.getLogger(__name__)
 
 # SCHEMA & DB MODELS
 Base = declarative_base()
@@ -156,10 +159,11 @@ def fake_data():
 
 
 def main():
-    energy_data = get_energy_brick_data()
-    # energy_data = fake_data()
+    # energy_data = get_energy_brick_data()
+    energy_data = fake_data()
     repository = SqlAlchemyLocation(db=get_db())
     repository.add(energy_data)
+    logger.info(f"Saved measurements in the database: {energy_data.dict()}")
 
 
 if __name__ == "__main__":
