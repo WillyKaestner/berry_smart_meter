@@ -5,6 +5,8 @@ from tinkerforge.bricklet_energy_monitor import BrickletEnergyMonitor
 import database as db
 import crud
 from logging_config import LOGGING_CONFIG
+
+
 logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger(__name__)
 
@@ -49,8 +51,8 @@ def fake_data():
 
 
 def main():
-    # energy_data = get_energy_brick_data()
-    energy_data = fake_data()
+    energy_data = get_energy_brick_data()
+    # energy_data = fake_data()
     repository = crud.SqlAlchemyLocation(db=db.get_db())
     repository.add(energy_data)
     logger.info(f"Saved measurements in the database: {energy_data.dict()}")
