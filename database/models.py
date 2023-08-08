@@ -1,5 +1,4 @@
 """Database Models declared using SQLAlchemy"""
-
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer
 from sqlalchemy.sql.sqltypes import TIMESTAMP

@@ -1,3 +1,4 @@
+import time
 import logging.config
 from tinkerforge.ip_connection import IPConnection
 from tinkerforge.bricklet_energy_monitor import BrickletEnergyMonitor
@@ -51,11 +52,17 @@ def fake_data():
 
 
 def main():
+    current_time = time.strftime("%H:%M:%S", time.localtime())
+    start = time.perf_counter()
+
     energy_data = get_energy_brick_data()
     # energy_data = fake_data()
     repository = crud.SqlAlchemyLocation(db=db.get_db())
     repository.add(energy_data)
+
+    end = time.perf_counter()
     logger.info(f"Saved measurements in the database: {energy_data.dict()}")
+    logger.info(f"Program start at {current_time}. Execution time: {end - start:.02f}s")
 
 
 if __name__ == "__main__":
