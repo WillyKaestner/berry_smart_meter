@@ -12,7 +12,7 @@ logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger(__name__)
 
 
-def get_energy_brick_data():
+def get_energy_brick_data(meter_uuid: str):
     HOST = "localhost"
     PORT = 4223
     UID = "Us4"  # Change XYZ to the UID of your Energy Monitor Bricklet
@@ -34,7 +34,8 @@ def get_energy_brick_data():
                                       apparent_power=apparent_power,
                                       reactive_power=reactive_power,
                                       power_factor=power_factor,
-                                      frequency=frequency)
+                                      frequency=frequency,
+                                      meter_uuid=meter_uuid)
 
     return energy_data
 
@@ -55,7 +56,7 @@ def main():
     current_time = time.strftime("%H:%M:%S", time.localtime())
     start = time.perf_counter()
 
-    energy_data = get_energy_brick_data()
+    energy_data = get_energy_brick_data(meter_uuid="5d52a203-b212-4538-82dd-b2874afffa20")
     # energy_data = fake_data()
     repository = crud.SqlAlchemyLocation(db=db.get_db())
     repository.add(energy_data)

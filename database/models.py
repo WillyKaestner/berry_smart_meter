@@ -2,6 +2,7 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer
 from sqlalchemy.sql.sqltypes import TIMESTAMP
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql.expression import text
 
 
@@ -20,3 +21,4 @@ class EnergyData(Base):  # Database Model
     power_factor = Column(Integer)
     frequency = Column(Integer)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
+    meter_uuid = Column(UUID(), autoincrement=False)

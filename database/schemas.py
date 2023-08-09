@@ -2,6 +2,7 @@
 
 from pydantic import BaseModel
 
+
 class EnergyDataCreate(BaseModel):  # Data Schema
     voltage: int
     current: int
@@ -11,3 +12,4 @@ class EnergyDataCreate(BaseModel):  # Data Schema
     reactive_power: int
     power_factor: int
     frequency: int
+    meter_uuid: str
