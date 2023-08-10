@@ -3,7 +3,7 @@
 from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
-from config import SETTINGS
+from settings import SETTINGS
 
 
 def create_db_engine(alembic_use: bool = False):

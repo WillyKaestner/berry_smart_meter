@@ -1,4 +1,6 @@
 sqlalchemy==1.4.39
-pydantic[dotenv]
+pydantic
 tinkerforge
 psycopg2
+alembic
+pyyaml

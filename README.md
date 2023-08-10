@@ -5,7 +5,7 @@
 
 As for the installation of Python dependencies, you can run the following [pip](https://pypi.org/project/pip/) command
 ```shell
-python -m pip install -r requirements.txt
+python -m pip install --upgrade -r requirements.txt
 ```
 
 You can also obtain a stand-alone package, not requiring a compiler or external libraries, by installing the psycopg2-binary package from PyPI:

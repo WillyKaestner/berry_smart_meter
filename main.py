@@ -5,6 +5,7 @@ from tinkerforge.bricklet_energy_monitor import BrickletEnergyMonitor
 
 import database as db
 import crud
+import config
 from logging_config import LOGGING_CONFIG
 
 
@@ -52,19 +53,20 @@ def fake_data():
     return energy_data
 
 
-def main():
+def main(config_data: config.ConfigMeter):
     current_time = time.strftime("%H:%M:%S", time.localtime())
     start = time.perf_counter()
 
-    energy_data = get_energy_brick_data(meter_uuid="5d52a203-b212-4538-82dd-b2874afffa20")
-    # energy_data = fake_data()
+    energy_data = get_energy_brick_data(meter_uuid=config_data.meter_uuid)
+    if config_data.run_type == "dry run":
+        energy_data = fake_data()
     repository = crud.SqlAlchemyLocation(db=db.get_db())
     repository.add(energy_data)
 
     end = time.perf_counter()
-    logger.info(f"Saved measurements in the database: {energy_data.dict()}")
+    logger.info(f"Saved measurements in the database: {energy_data.model_dump()}")
     logger.info(f"Program start at {current_time}. Execution time: {end - start:.02f}s")
 
 
 if __name__ == "__main__":
-    main()
+    main(config.get_config_meter())

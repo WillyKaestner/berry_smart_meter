@@ -1,4 +1,4 @@
-from config import SETTINGS
+from settings import SETTINGS
 
 LOGGING_CONFIG = {
     "version": 1,
