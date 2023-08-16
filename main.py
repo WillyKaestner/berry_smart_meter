@@ -38,6 +38,7 @@ def get_energy_brick_data(meter_uuid: str):
                                       frequency=frequency,
                                       meter_uuid=meter_uuid)
 
+    logger.info("Measurements received from energy brick")
     return energy_data
 
 
@@ -55,6 +56,7 @@ def fake_data():
 
 def main(config_data: config.ConfigMeter):
     current_time = time.strftime("%H:%M:%S", time.localtime())
+    logger.info(f"Program started at {current_time}")
     start = time.perf_counter()
 
     energy_data = get_energy_brick_data(meter_uuid=config_data.meter_uuid)
@@ -65,7 +67,7 @@ def main(config_data: config.ConfigMeter):
 
     end = time.perf_counter()
     logger.info(f"Saved measurements in the database: {energy_data.model_dump()}")
-    logger.info(f"Program start at {current_time}. Execution time: {end - start:.02f}s")
+    logger.info(f"Program ended. Execution time: {end - start:.02f}s")
 
 
 if __name__ == "__main__":

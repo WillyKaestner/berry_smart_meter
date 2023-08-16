@@ -1,10 +1,11 @@
 """Create a connection to database and set up a database session"""
-
+import logging
 from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
 from settings import SETTINGS
 
+logger = logging.getLogger(__name__)
 
 def create_db_engine(alembic_use: bool = False):
     sqlalchemy_database_url = f"postgresql://{SETTINGS.database_username}:{SETTINGS.database_password}@" \
@@ -31,6 +32,7 @@ def get_db() -> Session:
     sessionlocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = sessionlocal()
     try:
+        logger.info("Database session initiated")
         return db
     finally:
         db.close()
