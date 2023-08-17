@@ -1,5 +1,7 @@
 import time
 import logging.config
+import uuid
+
 from tinkerforge.ip_connection import IPConnection
 from tinkerforge.bricklet_energy_monitor import BrickletEnergyMonitor
 
@@ -13,7 +15,7 @@ logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger(__name__)
 
 
-def get_energy_brick_data(meter_uuid: str):
+def get_energy_brick_data(meter_uuid: uuid.UUID):
     HOST = "localhost"
     PORT = 4223
     UID = "Us4"  # Change XYZ to the UID of your Energy Monitor Bricklet
@@ -66,7 +68,7 @@ def main(config_data: config.ConfigMeter):
     repository.add(energy_data)
 
     end = time.perf_counter()
-    logger.info(f"Saved measurements in the database: {energy_data.model_dump()}")
+    logger.info(f"Saved measurements in the database: {energy_data.dict()}")
     logger.info(f"Program ended. Execution time: {end - start:.02f}s")
 
 

@@ -1,9 +1,9 @@
 """Data Schemas defined with pydantic"""
 
-from pydantic import BaseModel
+import pydantic as pyd
 
 
-class EnergyDataCreate(BaseModel):  # Data Schema
+class EnergyDataCreate(pyd.BaseModel):  # Data Schema
     voltage: int
     current: int
     energy: int
@@ -12,4 +12,4 @@ class EnergyDataCreate(BaseModel):  # Data Schema
     reactive_power: int
     power_factor: int
     frequency: int
-    meter_uuid: str
+    meter_uuid: pyd.UUID4
