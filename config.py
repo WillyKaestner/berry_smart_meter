@@ -1,4 +1,5 @@
 import yaml
+import pathlib
 import pydantic as pyd
 
 
@@ -18,7 +19,9 @@ class ConfigMeter(pyd.BaseModel):
 
 
 def open_config_meter(file_path):
-    with open(file_path, "r") as f:
+    base_path = pathlib.Path(__file__).parent
+    file_path_read = (base_path / f"{file_path}").resolve()
+    with open(file_path_read, "r") as f:
         return yaml.safe_load(f)
 
 
