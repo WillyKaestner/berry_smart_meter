@@ -21,4 +21,4 @@ class EnergyData(Base):  # Database Model
     power_factor = Column(Integer)
     frequency = Column(Integer)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
-    meter_uuid = Column(UUID(), autoincrement=False)
+    meter_uuid = Column((UUID(as_uuid=True)), autoincrement=False)
