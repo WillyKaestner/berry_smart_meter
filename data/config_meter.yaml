@@ -1,2 +1,2 @@
-RUN TYPE: run
-METER UUID: 5d52a203-b212-4538-82dd-b2874afffa20
+run_type: run
+meter_uuid: 5d52a203-b212-4538-82dd-b2874afffa20
