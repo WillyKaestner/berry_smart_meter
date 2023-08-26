@@ -74,4 +74,4 @@ def main(config_data: config.ConfigMeter):
 
 if __name__ == "__main__":
     main(config.get_config_meter())
-    # logger.info("Git Pull every 15min success")
+    logger.info("Git Pull update nummer 2 success")
