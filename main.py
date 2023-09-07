@@ -30,29 +30,29 @@ def get_energy_brick_data(meter_uuid: uuid.UUID):
     voltage, current, energy, real_power, apparent_power, reactive_power, power_factor, \
         frequency = em.get_energy_data()
     # energy_data = EnergyDataCreate(*em.get_energy_data())
-    energy_data = db.EnergyDataCreate(voltage=voltage,
-                                      current=current,
-                                      energy=energy,
-                                      real_power=real_power,
-                                      apparent_power=apparent_power,
-                                      reactive_power=reactive_power,
-                                      power_factor=power_factor,
-                                      frequency=frequency,
-                                      meter_uuid=meter_uuid)
+    energy_data = db.MeasurementCreate(voltage=voltage,
+                                       current=current,
+                                       energy=energy,
+                                       real_power=real_power,
+                                       apparent_power=apparent_power,
+                                       reactive_power=reactive_power,
+                                       power_factor=power_factor,
+                                       frequency=frequency,
+                                       meter_uuid=meter_uuid)
 
     logger.info("Measurements received from energy brick")
     return energy_data
 
 
 def fake_data():
-    energy_data = db.EnergyDataCreate(voltage=235,
-                                      current=1,
-                                      energy=1,
-                                      real_power=1,
-                                      apparent_power=1,
-                                      reactive_power=1,
-                                      power_factor=1,
-                                      frequency=51)
+    energy_data = db.MeasurementCreate(voltage=235,
+                                       current=1,
+                                       energy=1,
+                                       real_power=1,
+                                       apparent_power=1,
+                                       reactive_power=1,
+                                       power_factor=1,
+                                       frequency=51)
     return energy_data
 
 
@@ -64,7 +64,7 @@ def main(config_data: config.ConfigMeter):
     energy_data = get_energy_brick_data(meter_uuid=config_data.meter_uuid)
     if config_data.run_type == "dry run":
         energy_data = fake_data()
-    repository = crud.SqlAlchemyLocation(db=db.get_db())
+    repository = crud.SqlAlchemyEnergyData(db=db.get_db())
     repository.add(energy_data)
 
     end = time.perf_counter()

@@ -1,0 +1,8 @@
+cython
+pandas
+sqlalchemy==1.4.39
+pydantic[dotenv]==1.10.8
+tinkerforge
+psycopg2-binary
+alembic
+pyyaml
