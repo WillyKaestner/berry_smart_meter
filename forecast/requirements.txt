@@ -6,3 +6,4 @@ tinkerforge
 psycopg2-binary
 alembic
 pyyaml
+prophet
