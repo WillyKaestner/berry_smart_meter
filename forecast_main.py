@@ -2,7 +2,7 @@ from forecast import forecast_prophet, consumption_data
 
 
 # Select forecast strategy
-FORECAST_STRATEGY = forecast_prophet.ProphetForecast()
+FORECAST_STRATEGY = forecast_prophet.ProphetForecast(periods=96)
 
 # Forecast model generation and prediction
 data_raw = consumption_data.get_hist_consumption_data()
