@@ -4,13 +4,16 @@ import logging
 logger = logging.getLogger(__name__)
 
 IP_ADDRESS_PLUG_1 = "192.168.1.91"
+IP_ADDRESS_PLUG_2 = "192.168.1.147"
 
 
 def control_plugs(energy_data):
     if energy_data.real_power > 400000:
         turn_shelly_off(IP_ADDRESS_PLUG_1)
+        turn_shelly_off(IP_ADDRESS_PLUG_2)
     else:
         turn_shelly_on(IP_ADDRESS_PLUG_1)
+        turn_shelly_on(IP_ADDRESS_PLUG_2)
 
 
 def turn_shelly_on(ip_address):
