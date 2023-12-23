@@ -5,15 +5,21 @@ logger = logging.getLogger(__name__)
 
 IP_ADDRESS_PLUG_1 = "192.168.1.91"
 IP_ADDRESS_PLUG_2 = "192.168.1.147"
+IP_ADDRESS_PLUG_3 = "192.168.1.84"
+IP_ADDRESS_PLUG_4 = "192.168.1.105"
 
 
 def control_plugs(energy_data):
     if energy_data.real_power > 200000:
         turn_shelly_off(IP_ADDRESS_PLUG_1)
         turn_shelly_off(IP_ADDRESS_PLUG_2)
+        turn_shelly_off(IP_ADDRESS_PLUG_3)
+        turn_shelly_off(IP_ADDRESS_PLUG_4)
     else:
         turn_shelly_on(IP_ADDRESS_PLUG_1)
         turn_shelly_on(IP_ADDRESS_PLUG_2)
+        turn_shelly_on(IP_ADDRESS_PLUG_3)
+        turn_shelly_on(IP_ADDRESS_PLUG_4)
 
 
 def turn_shelly_on(ip_address):
