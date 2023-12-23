@@ -8,6 +8,7 @@ from tinkerforge.bricklet_energy_monitor import BrickletEnergyMonitor
 import database as db
 import crud
 import config
+import shelly
 from logging_config import LOGGING_CONFIG
 
 
@@ -64,6 +65,12 @@ def main(config_data: config.ConfigMeter):
     energy_data = get_energy_brick_data(meter_uuid=config_data.meter_uuid)
     if config_data.run_type == "dry run":
         energy_data = fake_data()
+
+    # Control shelly plugs based on the power consumption
+    shelly.control_plugs(energy_data)
+    logger.info("Shelly plugs controlled")
+
+    #  Save data to database
     repository = crud.SqlAlchemyLocation(db=db.get_db())
     repository.add(energy_data)
 
