@@ -10,7 +10,7 @@ IP_ADDRESS_PLUG_4 = "192.168.1.105"
 
 
 def control_plugs(energy_data):
-    if energy_data.real_power > 200000:
+    if energy_data.real_power > 500000:
         turn_shelly_off(IP_ADDRESS_PLUG_1)
         turn_shelly_off(IP_ADDRESS_PLUG_2)
         turn_shelly_off(IP_ADDRESS_PLUG_3)
