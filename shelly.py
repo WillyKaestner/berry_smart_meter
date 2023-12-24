@@ -21,7 +21,7 @@ def control_plugs(energy_data):
         turn_shelly_on(IP_ADDRESS_PLUG_3)
         turn_shelly_on(IP_ADDRESS_PLUG_4)
     else:
-        logger.info(f"Current Energy consumption of {energy_data.real_power / 1000:.2f} Watt. Not controlling Plugs")
+        logger.info(f"Current Energy consumption of {energy_data.real_power / 100:.2f} Watt. Not controlling Plugs")
 
 
 def turn_shelly_on(ip_address):
