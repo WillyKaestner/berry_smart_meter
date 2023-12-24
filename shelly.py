@@ -15,11 +15,13 @@ def control_plugs(energy_data):
         turn_shelly_off(IP_ADDRESS_PLUG_2)
         turn_shelly_off(IP_ADDRESS_PLUG_3)
         turn_shelly_off(IP_ADDRESS_PLUG_4)
-    else:
+    elif energy_data.real_power < 200000:
         turn_shelly_on(IP_ADDRESS_PLUG_1)
         turn_shelly_on(IP_ADDRESS_PLUG_2)
         turn_shelly_on(IP_ADDRESS_PLUG_3)
         turn_shelly_on(IP_ADDRESS_PLUG_4)
+    else:
+        logger.info(f"Current Energy consumption of {energy_data.real_power / 1000:.2f} Watt. Not controlling Plugs")
 
 
 def turn_shelly_on(ip_address):
