@@ -17,7 +17,7 @@ def control_plugs(energy_data):
         turn_shelly_off(IP_ADDRESS_PLUG_2)
         turn_water_boiler_off()
         turn_shelly_off(IP_ADDRESS_PLUG_4)
-    elif energy_data.real_power < 200000:
+    elif energy_data.real_power < 250000:
         turn_shelly_on(IP_ADDRESS_PLUG_1)
         turn_shelly_on(IP_ADDRESS_PLUG_2)
         turn_water_boiler_on()
