@@ -75,7 +75,7 @@ def main(config_data: config.ConfigMeter):
 
     end = time.perf_counter()
     logger.info(f"Saved measurements in the database: {energy_data.dict()}")
-    logger.info(f"Program ended. Execution time: {end - start:.02f}s")
+    logger.debug(f"Program ended. Execution time: {end - start:.02f}s")
 
 
 if __name__ == "__main__":
