@@ -41,7 +41,7 @@ def get_energy_brick_data(meter_uuid: uuid.UUID):
                                       frequency=frequency,
                                       meter_uuid=meter_uuid)
 
-    logger.info("Measurements received from energy brick")
+    logger.debug("Measurements received from energy brick")
     return energy_data
 
 
