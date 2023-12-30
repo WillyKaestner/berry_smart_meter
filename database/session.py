@@ -7,6 +7,7 @@ from settings import SETTINGS
 
 logger = logging.getLogger(__name__)
 
+
 def create_db_engine(alembic_use: bool = False):
     sqlalchemy_database_url = f"postgresql://{SETTINGS.database_username}:{SETTINGS.database_password}@" \
                               f"{SETTINGS.database_host}:5432/{SETTINGS.database_name}"
@@ -32,7 +33,7 @@ def get_db() -> Session:
     sessionlocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = sessionlocal()
     try:
-        logger.info("Database session initiated")
+        logger.debug("Database session initiated")
         return db
     finally:
         db.close()

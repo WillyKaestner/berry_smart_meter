@@ -19,7 +19,7 @@ LOGGING_CONFIG = {
         },
         "papertrail": {
             "class": "logging.handlers.SysLogHandler",
-            "level": "DEBUG",
+            "level": "INFO",
             "address": (SETTINGS.papertrail_host, SETTINGS.papertrail_port),
             "formatter": "ph_formatter",
         },

@@ -59,7 +59,7 @@ def fake_data():
 
 def main(config_data: config.ConfigMeter):
     current_time = time.strftime("%H:%M:%S", time.localtime())
-    logger.info(f"Program started at {current_time}")
+    logger.debug(f"Program started at {current_time}")
     start = time.perf_counter()
 
     energy_data = get_energy_brick_data(meter_uuid=config_data.meter_uuid)
@@ -68,7 +68,6 @@ def main(config_data: config.ConfigMeter):
 
     # Control shelly plugs based on the power consumption
     shelly.control_plugs(energy_data)
-    logger.info("Shelly plugs controlled")
 
     #  Save data to database
     repository = crud.SqlAlchemyLocation(db=db.get_db())
@@ -81,4 +80,3 @@ def main(config_data: config.ConfigMeter):
 
 if __name__ == "__main__":
     main(config.get_config_meter())
-    logger.info("Git Pull update - 14:56 commit - success")

@@ -13,15 +13,17 @@ IP_ADDRESS_PLUG_4 = "192.168.1.105"
 
 def control_plugs(energy_data):
     if energy_data.real_power > 500000:
-        turn_shelly_off(IP_ADDRESS_PLUG_1)
-        turn_shelly_off(IP_ADDRESS_PLUG_2)
-        turn_water_boiler_off()
-        turn_shelly_off(IP_ADDRESS_PLUG_4)
+        resp_1 = turn_shelly_off(IP_ADDRESS_PLUG_1)
+        resp_2 = turn_shelly_off(IP_ADDRESS_PLUG_2)
+        resp_3 = turn_water_boiler_off()
+        resp_4 = turn_shelly_off(IP_ADDRESS_PLUG_4)
+        logger.info(f"Current Energy consumption of {energy_data.real_power / 100:.2f} Watt. All plugs turned off")
     elif energy_data.real_power < 250000:
         turn_shelly_on(IP_ADDRESS_PLUG_1)
         turn_shelly_on(IP_ADDRESS_PLUG_2)
         turn_water_boiler_on()
         turn_shelly_on(IP_ADDRESS_PLUG_4)
+        logger.info(f"Current Energy consumption of {energy_data.real_power / 100:.2f} Watt. All plugs turned on")
     else:
         logger.info(f"Current Energy consumption of {energy_data.real_power / 100:.2f} Watt. Not controlling Plugs")
 
@@ -30,7 +32,7 @@ def turn_shelly_on(ip_address):
     url = f'http://{ip_address}/relay/0?turn=on'
     try:
         response = requests.get(url)
-        logger.info(f"Shelly plug with IP {ip_address} turned on. Response: {response}")
+        logger.debug(f"Shelly plug with IP {ip_address} turned on. Response: {response}")
         return response
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -42,7 +44,7 @@ def turn_shelly_off(ip_address):
     url = f'http://{ip_address}/relay/0?turn=off'
     try:
         response = requests.get(url)
-        logger.info(f"Shelly plug with IP {ip_address} turned off. Response: {response}")
+        logger.debug(f"Shelly plug with IP {ip_address} turned off. Response: {response}")
         return response
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -50,7 +52,7 @@ def turn_shelly_off(ip_address):
 
 
 def turn_water_boiler_off():
-    turn_shelly_off(IP_ADDRESS_PLUG_3)
+    response = turn_shelly_off(IP_ADDRESS_PLUG_3)
     # Get current time
     current_time = datetime.now()
     # Convert to a string (for example, in ISO format)
@@ -61,6 +63,7 @@ def turn_water_boiler_off():
     with open('switch_off.json', 'w') as file:
         json.dump(data_to_save, file)
     logger.info(f"Water boiler turned off at {current_time_str}")
+    return response
 
 
 def turn_water_boiler_on():
@@ -79,8 +82,10 @@ def turn_water_boiler_on():
     time_difference_minutes = time_difference.total_seconds() / 60
     # If time difference is more than 30 minutes, turn on water boiler
     if time_difference_minutes > 20:
-        turn_shelly_on(IP_ADDRESS_PLUG_3)
-        logger.info(f"Water boiler turned on at {current_time.isoformat()}")
+        response = turn_shelly_on(IP_ADDRESS_PLUG_3)
+        logger.debug(f"Water boiler turned on at {current_time.isoformat()}")
     else:
-        logger.info(f"Water boiler not turned on. Time difference of {time_difference_minutes:.2f} minutes since switch off")
+        logger.debug(f"Water boiler not turned on. Time difference of {time_difference_minutes:.2f} minutes since switch off")
+        response = None
 
+    return response
