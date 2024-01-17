@@ -60,3 +60,18 @@ Add a cronjob at the end of the file and save:
 # */15 * * * * /usr/bin/python3 /home/willykaestner/PythonProgramms/energy_meter/main.py
 ```
 More information about running cronjobs on a raspberry pi can be found [here](https://medium.com/analytics-vidhya/how-to-automate-run-your-python-script-in-your-raspberry-pi-b6fe652443db).
+
+
+## Database calculations
+SQL query code to calculate the weekly consumption measured
+```
+SELECT
+    date_trunc('week', created_at) AS week_start,
+    (SUM((voltage / 100) * (current / 100) / 60.0) / 1000.0) AS total_power_per_week
+FROM
+    measurements
+GROUP BY
+    date_trunc('week', created_at)
+ORDER BY
+    week_start;
+```
