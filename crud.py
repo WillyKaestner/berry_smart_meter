@@ -6,14 +6,15 @@ class SqlAlchemyLocation:
     """
     SQLAlchemy ORM implementation for handling a database as storage
     """
-    def __init__(self, db: Session):
-        self.db = db
+    # def __init__(self, db: Session):
+    #     self.db = db
 
     def add(self, location_data: db.schemas.EnergyDataCreate):
-        db_surfspot = db.models.EnergyData(**location_data.dict())
-        self.db.add(db_surfspot)
-        self.db.commit()
-        self.db.refresh(db_surfspot)
+        with db.get_db() as db_session:
+            db_surfspot = db.models.EnergyData(**location_data.dict())
+            db_session.add(db_surfspot)
+            db_session.commit()
+            db_session.refresh(db_surfspot)
         # return db_surfspot
 
     # def get_by_id(self, location_id: int) -> schemas.LocationResponse | None:

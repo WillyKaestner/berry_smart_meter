@@ -28,9 +28,7 @@ def get_energy_brick_data(meter_uuid: uuid.UUID):
     # Don't use device before ipcon is connected
 
     # Get current energy data
-    voltage, current, energy, real_power, apparent_power, reactive_power, power_factor, \
-        frequency = em.get_energy_data()
-    # energy_data = EnergyDataCreate(*em.get_energy_data())
+    voltage, current, energy, real_power, apparent_power, reactive_power, power_factor, frequency = em.get_energy_data()
     energy_data = db.EnergyDataCreate(voltage=voltage,
                                       current=current,
                                       energy=energy,
@@ -45,7 +43,7 @@ def get_energy_brick_data(meter_uuid: uuid.UUID):
     return energy_data
 
 
-def fake_data():
+def fake_data(meter_uuid):
     energy_data = db.EnergyDataCreate(voltage=235,
                                       current=1,
                                       energy=1,
@@ -53,24 +51,30 @@ def fake_data():
                                       apparent_power=1,
                                       reactive_power=1,
                                       power_factor=1,
-                                      frequency=51)
+                                      frequency=51,
+                                      meter_uuid=meter_uuid)
     return energy_data
 
 
 def main(config_data: config.ConfigMeter):
+
+    # setup the global database engine
+    db.setup_db()
+
     current_time = time.strftime("%H:%M:%S", time.localtime())
     logger.debug(f"Program started at {current_time}")
     start = time.perf_counter()
 
-    energy_data = get_energy_brick_data(meter_uuid=config_data.meter_uuid)
     if config_data.run_type == "dry run":
-        energy_data = fake_data()
+        energy_data = fake_data("7c1b09f8-d6f6-4a4d-b4ad-07ac6ad991ae")
+    else:
+        energy_data = get_energy_brick_data(meter_uuid=config_data.meter_uuid)
 
     # Control shelly plugs based on the power consumption
     shelly.control_plugs(energy_data)
 
     #  Save data to database
-    repository = crud.SqlAlchemyLocation(db=db.get_db())
+    repository = crud.SqlAlchemyLocation()
     repository.add(energy_data)
 
     end = time.perf_counter()

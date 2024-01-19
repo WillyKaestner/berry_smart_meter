@@ -4,3 +4,4 @@ tinkerforge
 psycopg2
 alembic
 pyyaml
+requests
