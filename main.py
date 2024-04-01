@@ -61,8 +61,8 @@ def main(config_data: config.ConfigMeter):
     # setup the global database engine
     db.setup_db()
 
-    current_time = time.strftime("%H:%M:%S", time.localtime())
-    logger.debug(f"Program started at {current_time}")
+    # current_time = time.strftime("%H:%M:%S", time.localtime())
+    # logger.debug(f"Program started at {current_time}")
     start = time.perf_counter()
 
     if config_data.run_type == "dry run":
@@ -79,7 +79,7 @@ def main(config_data: config.ConfigMeter):
 
     end = time.perf_counter()
     logger.info(f"Saved measurements in the database: {energy_data.dict()}")
-    logger.debug(f"Program ended. Execution time: {end - start:.02f}s")
+    # logger.debug(f"Program ended. Execution time: {end - start:.02f}s")
 
 
 if __name__ == "__main__":

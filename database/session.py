@@ -52,10 +52,8 @@ def get_db() -> Session:
 
     # Yield the database session to the caller.
     try:
-        logger.debug("Database session initiated")
         yield db
 
     # Close the database session if it was successfully created, to prevent resource leaks.
     finally:
-        logger.debug("Database session closed")
         db.close()
