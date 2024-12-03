@@ -8,7 +8,7 @@ LOGGING_CONFIG = {
             "format": "%(asctime)s - %(levelname)s - %(message)s - %(name)s"
         },
         "ph_formatter": {
-            "format": "%(levelname)s - %(message)s - %(name)s - line number:%(lineno)s"
+            "format": "%(levelname)s - %(message)s - %(name)s - line number:%(lineno)s - luz_energy_meter"
         }
     },
     "handlers": {
