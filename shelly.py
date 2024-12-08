@@ -5,10 +5,10 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
-IP_ADDRESS_PLUG_1 = "192.168.1.91"
-IP_ADDRESS_PLUG_2 = "192.168.1.147"
-IP_ADDRESS_PLUG_3 = "192.168.1.84"
-IP_ADDRESS_PLUG_4 = "192.168.1.105"
+IP_ADDRESS_PLUG_1 = "192.168.1.91"  # Mos
+IP_ADDRESS_PLUG_2 = "192.168.1.147"  # Wohnzimmer
+IP_ADDRESS_PLUG_3 = "192.168.1.84"  # Wasserboiler
+IP_ADDRESS_PLUG_4 = "192.168.1.105"  # Furnas
 
 
 def control_plugs(energy_data):

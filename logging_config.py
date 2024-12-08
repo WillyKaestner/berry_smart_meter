@@ -19,7 +19,7 @@ LOGGING_CONFIG = {
         },
         "papertrail": {
             "class": "logging.handlers.SysLogHandler",
-            "level": "DEBUG",
+            "level": "INFO",
             "address": (SETTINGS.papertrail_host, SETTINGS.papertrail_port),
             "formatter": "ph_formatter",
         },
@@ -32,31 +32,3 @@ LOGGING_CONFIG = {
         ]
     }
 }
-
-
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'simple': {
-#             'format': '%(asctime)s %(hostname)s YOUR_APP: [%(levelname)s] %(message)s',
-#             'datefmt': '%b %d %H:%M:%S',
-#         },
-#     },
-#     'handlers': {
-#         'SysLog': {
-#             'level': 'INFO',
-#             'class': 'logging.handlers.SysLogHandler',
-#             'formatter': 'simple',
-#             'address': ('logsN.papertrailapp.com', 30000),
-#             'filters': ['require_hostname']
-#         }
-#     },
-#     'loggers': {
-#         'papertrail_logger': {
-#             'handlers': ['SysLog'],
-#             'level': 'INFO',
-#             'propagate': True,
-#         }
-#     }
-# }
